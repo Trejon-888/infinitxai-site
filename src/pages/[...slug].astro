@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((p) => ({
+    params: { slug: p.data.slug },
+    props: { page: p },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const { title, description } = page.data;
+---
+<Layout title={`${title} — INFINITX`} description={description}>
+  <article class="prose prose-invert max-w-none">
+    <h1 class="text-4xl font-bold mb-6">{title}</h1>
+    <div class="space-y-4 text-white/85 leading-relaxed">
+      <Content />
+    </div>
+  </article>
+</Layout>

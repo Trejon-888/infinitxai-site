@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BeehiivForm from '../../components/BeehiivForm.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.mdx?$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, author, tags, ogImage, faq } = post.data;
+---
+<Layout
+  title={`${title} — INFINITX`}
+  description={description}
+  type="article"
+  pubDate={pubDate}
+  updatedDate={updatedDate}
+  author={author}
+  tags={tags}
+  ogImage={ogImage}
+  faq={faq}
+  breadcrumbs={[
+    { name: 'Home', item: 'https://infinitxai.com/' },
+    { name: 'Blog', item: 'https://infinitxai.com/blog/' },
+    { name: title, item: new URL(Astro.url.pathname, 'https://infinitxai.com').toString() },
+  ]}
+>
+  <article class="prose prose-invert max-w-none">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold tracking-tight mb-3">{title}</h1>
+      <p class="text-white/60 lede">{description}</p>
+      <div class="text-xs text-white/40 mt-3">
+        <time datetime={pubDate.toISOString()}>
+          {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        {author && <span> · {author}</span>}
+      </div>
+    </header>
+    <div class="post-body space-y-4 text-white/85 leading-relaxed">
+      <Content />
+    </div>
+    {faq && faq.length > 0 && (
+      <section class="mt-12 border-t border-white/10 pt-8">
+        <h2 class="text-2xl font-bold mb-4">FAQ</h2>
+        <dl class="space-y-4">
+          {faq.map((f) => (
+            <div>
+              <dt class="font-semibold">{f.question}</dt>
+              <dd class="text-white/70 mt-1">{f.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    )}
+    <section class="mt-12 border-t border-white/10 pt-8">
+      <h2 class="text-xl font-bold mb-3">Get the next one in your inbox.</h2>
+      <BeehiivForm />
+    </section>
+  </article>
+</Layout>

@@ -1,0 +1,56 @@
+---
+import SEO from '../components/SEO.astro';
+import '../styles/global.css';
+
+interface FAQ { question: string; answer: string; }
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+  pubDate?: Date;
+  updatedDate?: Date;
+  author?: string;
+  tags?: string[];
+  faq?: FAQ[];
+  breadcrumbs?: { name: string; item: string }[];
+}
+
+const props = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="INFINITX Blog" href="/rss.xml" />
+    <SEO {...props} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <header class="border-b border-white/10 px-6 py-4">
+      <nav class="max-w-5xl mx-auto flex items-center justify-between">
+        <a href="/" class="font-bold tracking-tight">INFINITX</a>
+        <div class="flex gap-6 text-sm">
+          <a href="/blog/">Blog</a>
+          <a href="/partner-with-finn/">Partner</a>
+        </div>
+      </nav>
+    </header>
+    <main class="flex-1 max-w-3xl mx-auto px-6 py-12 w-full">
+      <slot />
+    </main>
+    <footer class="border-t border-white/10 px-6 py-8 text-sm text-white/60">
+      <div class="max-w-5xl mx-auto flex flex-wrap gap-4 justify-between">
+        <span>&copy; {new Date().getFullYear()} INFINITX</span>
+        <div class="flex gap-4">
+          <a href="/privacy-policy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/sms-opt-in/">SMS Opt-in</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

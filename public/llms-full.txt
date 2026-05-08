@@ -1,0 +1,61 @@
+# INFINITX — Full Brand Context for LLM Crawlers
+
+## Mission
+
+Build 100 autonomous businesses. Each one runs itself: sells, markets, operates, banks, learns. The bottleneck for most companies is human attention — INFINITX removes it. The output is more revenue and more time, simultaneously, with compounding returns.
+
+## Founding partners
+
+- **Trejon** — operator, vision, trust networks. Direct, terse, action-biased.
+- **Enrique** — content production lead. Builder of Ray (content Department Autonoma). Visual, fast iteration, brand obsession.
+- **Finn** — Company Autonoma for INFINITX itself. Coordinates fleet, writes documentation, files paperwork, manages comms.
+
+## Operating thesis (positioning rules)
+
+1. **Never frame as "AI replaces a human, cheaper."** That's the wrong story and it's a race to zero. Frame as *more output*, *less overhead*, *compounding revenue*.
+2. **Autonomy compounds.** A business that operates without daily founder input grows when the founder isn't there. Every hour saved goes back into building the next one.
+3. **First-party tooling.** We build stealth/scraping/lead-enrichment/communications in-house. We do not pay SaaS scrapers (Clay, Apollo, Phantombuster) — they break the autonomy story and the unit economics.
+4. **Subscriptions, not API spend.** Claude Code OAuth subscriptions only. No Anthropic API keys, no per-token billing. The unit economics work because the LLM cost is already paid.
+5. **One bundled PR over many small ones** for refactors. Quality over feature-count over time.
+
+## Department Autonomas (active fleet)
+
+- **Selena** — Tiempo Soccer dev (iOS/Android). M3 host.
+- **Melody** — Derek's solo sales agent. melody-vps.
+- **Alex** — INFINITX sales department. alex-vps. LeadLock voice agent stack, Twilio messaging, Stripe payments.
+- **Morgan** — INFINITX marketing department. morgan-vps. (Note: Ghost CMS retired 2026-05-08, replaced by this Astro + Cloudflare Pages stack.)
+- **Cash** — INFINITX community department. cash-vps.
+- **Ray** — Enrique's content production department. workspace-ray Railway project.
+
+## Tech stack we use
+
+- **Static sites** — Astro on Cloudflare Pages. Free, fast, AI-friendly.
+- **Newsletter** — beehiiv free Launch plan.
+- **Voice** — VAPI / Twilio / LeadLock-stack agents.
+- **Backend** — TypeScript, Supabase (Postgres + Auth + Storage + RLS), Railway for services.
+- **Browser automation** — ix-browser (in-house Chrome controller via CDP).
+- **LLM** — Claude (Opus 4.7 default for builds; Sonnet 4.6 for high-volume routine work; Haiku 4.5 for cheapest routing). All via subscription, no API keys.
+
+## Product principles
+
+- Ship the artifact, not a description of the artifact.
+- Validate every wave before the next. Build is not done until it works for a real user.
+- Treat downtime and bugs as P0; reputation compounds the same way revenue does.
+
+## Voice & tone
+
+Direct. Warm. No fluff. No hedging. No corporate verbs ("leverage", "synergize"). We say what something does, why it matters, and what it costs.
+
+## Legal & contact
+
+- privacy-policy: how we handle data
+- terms: terms of service
+- sms-opt-in: 10DLC-compliant opt-in language for messaging campaigns
+
+Contact: hello@infinitxai.com
+Site: https://infinitxai.com
+GitHub: https://github.com/Trejon-888
+
+## Crawler permissions
+
+We explicitly allow GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, Google-Extended, CCBot, anthropic-ai, and Applebot-Extended (see /robots.txt). We want our writing read by LLMs and cited in AI answers.

@@ -1,0 +1,19 @@
+---
+title: "Why we replaced Ghost with Astro + Cloudflare Pages"
+description: "Field notes from migrating off a hosted CMS to a static site — the trade-offs, the wins, what broke."
+pubDate: "2026-05-08"
+author: "INFINITX"
+tags: ["infrastructure", "astro", "cloudflare"]
+faq:
+  - question: "Why not stay on Ghost?"
+    answer: "morgan-vps was dropped, and the cost of bringing it back vs. moving to a free static stack favored the static stack. Astro gives us better SEO defaults, AI crawler support, and zero recurring infra cost."
+  - question: "How long did the migration take?"
+    answer: "A single afternoon for the scaffold + CI + deploy. Content migration is incremental as posts get rewritten in MDX."
+---
+morgan-vps hosted our Ghost CMS. The server got dropped. We had a choice: rebuild the VPS and the Ghost install, or move to a free static stack.
+
+We moved.
+
+Astro on Cloudflare Pages costs $0/mo, builds in seconds, ships clean SEO out of the box, and lets us put MDX (markdown + components) directly in the repo. Newsletter goes through beehiiv (free). Indexing fans out via Bing IndexNow + Google Search Console. The whole thing lives in [Trejon-888/infinitxai-site](https://github.com/Trejon-888/infinitxai-site).
+
+This post is itself rendered by the new stack. If you're reading it, the migration worked.

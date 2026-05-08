@@ -1,0 +1,14 @@
+---
+title: "Why we build everything first-party (no Clay, no Apollo, no Phantombuster)"
+description: "A counter-intuitive call: in an AI-native business, paying SaaS scrapers breaks both the autonomy story and the unit economics."
+pubDate: "2026-05-04"
+author: "INFINITX"
+tags: ["tooling", "unit-economics"]
+---
+Every operator we know defaults to Clay + Apollo + Phantombuster + Bardeen + Dripify. The pitch is "let the experts handle scraping."
+
+We don't. We build all of it in-house — ix-browser for navigation, our own enrichment pipelines, our own outreach orchestrators.
+
+Two reasons. First, the unit economics: SaaS scrapers cost $200-2000/mo per seat per agent. With a fleet, that's $20-200k/yr just to send messages. Killed by margin. Second, the autonomy story: every external dependency is a place where the agent has to ask permission, surface an error, or wait for a human. That breaks the compounding loop.
+
+First-party tooling is more work upfront. It's the only thing that scales.

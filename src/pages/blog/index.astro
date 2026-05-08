@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Layout
+  title="Blog — INFINITX"
+  description="Field notes on autonomous businesses, AI-native operations, and the playbooks that compound."
+  breadcrumbs={[
+    { name: 'Home', item: 'https://infinitxai.com/' },
+    { name: 'Blog', item: 'https://infinitxai.com/blog/' },
+  ]}
+>
+  <h1 class="text-3xl font-bold mb-8">Blog</h1>
+  <ul class="space-y-6">
+    {posts.map((p) => (
+      <li>
+        <a href={`/blog/${p.id.replace(/\.mdx?$/, '')}/`} class="block group">
+          <h2 class="text-xl font-semibold group-hover:text-[var(--color-mint)]">{p.data.title}</h2>
+          <p class="text-sm text-white/60">{p.data.description}</p>
+          <time datetime={p.data.pubDate.toISOString()} class="text-xs text-white/40">
+            {p.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </time>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Layout>

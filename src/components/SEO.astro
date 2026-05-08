@@ -1,0 +1,144 @@
+---
+import { SEO as AstroSEO } from 'astro-seo';
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+  pubDate?: Date;
+  updatedDate?: Date;
+  author?: string;
+  tags?: string[];
+  faq?: FAQ[];
+  breadcrumbs?: { name: string; item: string }[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  type = 'website',
+  pubDate,
+  updatedDate,
+  author = 'INFINITX',
+  tags = [],
+  faq = [],
+  breadcrumbs = [],
+} = Astro.props;
+
+const siteUrl = 'https://infinitxai.com';
+const url = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = ogImage ?? `${siteUrl}/og-default.png`;
+
+const graph: any[] = [
+  {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: 'INFINITX',
+    url: siteUrl,
+    description: 'Autonomous companies. More money, more time, compounding returns.',
+    logo: `${siteUrl}/logo.png`,
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    url: siteUrl,
+    name: 'INFINITX',
+    description: 'Build 100 autonomous businesses.',
+    publisher: { '@id': `${siteUrl}/#organization` },
+  },
+];
+
+if (type === 'article') {
+  graph.push({
+    '@type': 'BlogPosting',
+    '@id': `${url}#blogposting`,
+    headline: title,
+    description,
+    image: ogImageUrl,
+    datePublished: pubDate?.toISOString(),
+    dateModified: (updatedDate ?? pubDate)?.toISOString(),
+    author: {
+      '@type': 'Person',
+      '@id': `${siteUrl}/authors/${author.toLowerCase().replace(/\s+/g, '-')}#person`,
+      name: author,
+    },
+    publisher: { '@id': `${siteUrl}/#organization` },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    keywords: tags.join(', '),
+  });
+}
+
+if (faq.length > 0) {
+  graph.push({
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  });
+}
+
+if (breadcrumbs.length > 0) {
+  graph.push({
+    '@type': 'BreadcrumbList',
+    '@id': `${url}#breadcrumbs`,
+    itemListElement: breadcrumbs.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: b.name,
+      item: b.item,
+    })),
+  });
+}
+
+graph.push({
+  '@type': 'WebPage',
+  '@id': `${url}#webpage`,
+  url,
+  name: title,
+  description,
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', 'h2', '.lede', '.tldr'],
+  },
+});
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+---
+<AstroSEO
+  title={title}
+  description={description}
+  canonical={url}
+  openGraph={{
+    basic: { title, type, image: ogImageUrl, url },
+    optional: { description, siteName: 'INFINITX' },
+    article:
+      type === 'article'
+        ? {
+            publishedTime: pubDate?.toISOString(),
+            modifiedTime: (updatedDate ?? pubDate)?.toISOString(),
+            authors: [author],
+            tags,
+          }
+        : undefined,
+  }}
+  twitter={{
+    card: 'summary_large_image',
+    creator: '@infinitxai',
+    title,
+    description,
+    image: ogImageUrl,
+  }}
+/>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

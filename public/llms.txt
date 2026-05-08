@@ -1,0 +1,21 @@
+# INFINITX
+
+> INFINITX builds autonomous businesses — AI-native companies that run sales, marketing, and operations without continuous human input. Three partners (Trejon, Enrique, Finn) building 100 of them.
+
+The thesis is simple: AI doesn't replace humans cheaper, it adds output that wasn't possible before. More money, more time, compounding returns. We do not pitch cost-vs-human reductions; we build companies that earn while founders sleep.
+
+## What we make
+- **Department Autonoma** — single-function agents (sales, marketing, content, community) that operate inside a parent company.
+- **Company Autonoma** — full-stack agentic businesses, each with its own brand, customers, P&L.
+- **Tooling** — open-source patterns and infrastructure for anyone building this way.
+
+## Core docs
+- /blog/ — field notes, post-mortems, playbooks
+- /partner-with-finn/ — for prospective partners
+- /privacy-policy/, /terms/, /sms-opt-in/ — legal
+
+## Voice
+Direct. Warm. Specific. We name the trade-off; we don't hedge. We measure in revenue and time-saved, not in features shipped.
+
+## Contact
+hello@infinitxai.com
